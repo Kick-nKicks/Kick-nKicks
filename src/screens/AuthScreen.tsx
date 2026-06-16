@@ -86,6 +86,7 @@ export function AuthScreen(_props: AuthStackScreenProps<'Auth'>) {
   return (
     <KeyboardAvoidingView
       className="flex-1 bg-white"
+      style={{ flex: 1, backgroundColor: '#FFFFFF' }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView

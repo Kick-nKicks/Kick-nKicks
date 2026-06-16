@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as SplashScreen from 'expo-splash-screen';
 import { ActivityIndicator, View } from 'react-native';
 import { useAuth } from '../hooks/useAuth';
 import type { RootStackParamList } from '../types';
@@ -18,12 +20,27 @@ import { AppStoreScreenshotsScreen } from '../screens/AppStoreScreenshotsScreen'
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+SplashScreen.preventAutoHideAsync().catch(() => {});
+
 export function AppNavigator() {
   const { session, loading } = useAuth();
 
+  useEffect(() => {
+    if (!loading) {
+      SplashScreen.hideAsync().catch(() => {});
+    }
+  }, [loading]);
+
   if (loading) {
     return (
-      <View className="flex-1 items-center justify-center bg-white">
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: colors.background,
+        }}
+      >
         <ActivityIndicator size="large" color={colors.brand} />
       </View>
     );

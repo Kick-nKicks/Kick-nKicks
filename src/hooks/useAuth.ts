@@ -23,6 +23,8 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
+const AUTH_INIT_TIMEOUT_MS = 8000;
+
 const DEMO_PROFILE: UserProfile = {
   id: 'demo-user',
   email: 'demo@kicknkicks.com',
@@ -44,16 +46,35 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
-      setSession(s);
-      setLoading(false);
-    });
+    let cancelled = false;
+    let timeout: ReturnType<typeof setTimeout>;
+
+    const finishLoading = () => {
+      clearTimeout(timeout);
+      if (!cancelled) setLoading(false);
+    };
+
+    timeout = setTimeout(finishLoading, AUTH_INIT_TIMEOUT_MS);
+
+    supabase.auth
+      .getSession()
+      .then(({ data: { session: s } }) => {
+        if (!cancelled) setSession(s);
+      })
+      .catch(() => {
+        if (!cancelled) setSession(null);
+      })
+      .finally(finishLoading);
 
     const { data: sub } = supabase.auth.onAuthStateChange((_event, s) => {
-      setSession(s);
+      if (!cancelled) setSession(s);
     });
 
-    return () => sub.subscription.unsubscribe();
+    return () => {
+      cancelled = true;
+      clearTimeout(timeout);
+      sub.subscription.unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
