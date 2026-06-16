@@ -12,12 +12,11 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { Ionicons } from '@expo/vector-icons';
-import type { AuthStackScreenProps } from '../types';
 import { useAuth } from '../hooks/useAuth';
 import { isSupabaseConfigured, supabase } from '../lib/supabase';
 import { colors } from '../constants/theme';
 
-export function AuthScreen(_props: AuthStackScreenProps<'Auth'>) {
+export function AuthScreen() {
   const insets = useSafeAreaInsets();
   const { signInWithEmail, signUpWithEmail, signInDemo } = useAuth();
   const [email, setEmail] = useState('');

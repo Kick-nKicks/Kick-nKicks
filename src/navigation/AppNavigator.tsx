@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as SplashScreen from 'expo-splash-screen';
@@ -6,7 +6,7 @@ import { ActivityIndicator, View } from 'react-native';
 import { useAuth } from '../hooks/useAuth';
 import type { RootStackParamList } from '../types';
 import { colors } from '../constants/theme';
-import { AuthNavigator } from './AuthNavigator';
+import { AuthScreen } from '../screens/AuthScreen';
 import { BottomTabNavigator } from './BottomTabNavigator';
 import { ListingDetailScreen } from '../screens/ListingDetailScreen';
 import { RestoreScreen } from '../screens/RestoreScreen';
@@ -25,7 +25,7 @@ SplashScreen.preventAutoHideAsync().catch(() => {});
 export function AppNavigator() {
   const { session, loading } = useAuth();
 
-  useEffect(() => {
+  const onRootLayout = useCallback(() => {
     if (!loading) {
       SplashScreen.hideAsync().catch(() => {});
     }
@@ -47,16 +47,18 @@ export function AppNavigator() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: colors.background },
-        }}
-      >
-        {!session ? (
-          <Stack.Screen name="AuthFlow" component={AuthNavigator} />
-        ) : (
+    <View style={{ flex: 1 }} onLayout={onRootLayout}>
+      <NavigationContainer>
+        <Stack.Navigator
+          key={session ? 'signed-in' : 'signed-out'}
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: colors.background },
+          }}
+        >
+          {!session ? (
+            <Stack.Screen name="AuthFlow" component={AuthScreen} />
+          ) : (
           <>
             <Stack.Screen name="MainTabs" component={BottomTabNavigator} />
             <Stack.Screen name="ListingDetail" component={ListingDetailScreen} />
@@ -71,6 +73,7 @@ export function AppNavigator() {
           </>
         )}
       </Stack.Navigator>
-    </NavigationContainer>
+      </NavigationContainer>
+    </View>
   );
 }
