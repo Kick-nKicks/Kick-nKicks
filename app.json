@@ -62,7 +62,8 @@
           "merchantIdentifier": "merchant.com.kicknkicks.app",
           "enableGooglePay": true
         }
-      ]
+      ],
+      "expo-splash-screen"
     ],
     "extra": {
       "eas": {
