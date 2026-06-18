@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as SplashScreen from 'expo-splash-screen';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import { useAuth } from '../hooks/useAuth';
 import type { RootStackParamList } from '../types';
 import { colors } from '../constants/theme';
@@ -42,6 +42,9 @@ export function AppNavigator() {
         }}
       >
         <ActivityIndicator size="large" color={colors.brand} />
+        <Text style={{ marginTop: 16, fontSize: 18, fontWeight: '700', color: colors.text }}>
+          Kick&apos;n Kicks
+        </Text>
       </View>
     );
   }
