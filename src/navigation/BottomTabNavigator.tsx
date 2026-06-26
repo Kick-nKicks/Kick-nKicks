@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import type { TabParamList } from '../types';
-import { colors } from '../constants/theme';
+import { colors, tabBarShadow } from '../constants/theme';
 import { HomeScreen } from '../screens/HomeScreen';
 import { SearchScreen } from '../screens/SearchScreen';
 import { SellScreen } from '../screens/SellScreen';
@@ -18,10 +18,14 @@ export function BottomTabNavigator() {
         tabBarActiveTintColor: colors.brand,
         tabBarInactiveTintColor: '#ADB5BD',
         tabBarStyle: {
+          backgroundColor: colors.surfaceGlass,
           borderTopColor: colors.border,
+          borderTopWidth: 1,
           paddingTop: 4,
           height: 60,
+          ...tabBarShadow,
         },
+        sceneStyle: { backgroundColor: 'transparent' },
         tabBarIcon: ({ color, size }) => {
           const icons: Record<keyof TabParamList, keyof typeof Ionicons.glyphMap> = {
             HomeTab: 'home',

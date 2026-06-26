@@ -14,7 +14,8 @@ import * as AppleAuthentication from 'expo-apple-authentication';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../hooks/useAuth';
 import { isSupabaseConfigured, supabase } from '../lib/supabase';
-import { colors } from '../constants/theme';
+import { SurfaceCard } from '../components/SurfaceCard';
+import { colors, radii, surfaceStyle } from '../constants/theme';
 
 export function AuthScreen() {
   const insets = useSafeAreaInsets();
@@ -82,74 +83,94 @@ export function AuthScreen() {
     }
   };
 
+  const inputStyle = {
+    backgroundColor: 'rgba(255, 253, 245, 0.8)',
+    borderRadius: radii.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+  };
+
   return (
     <KeyboardAvoidingView
-      className="flex-1 bg-white"
-      style={{ flex: 1, backgroundColor: '#FFFFFF' }}
+      className="flex-1"
+      style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView
         contentContainerClassName="flex-grow px-6 pb-8"
-        style={{ paddingTop: insets.top + 40 }}
+        style={{ paddingTop: insets.top + 48 }}
         keyboardShouldPersistTaps="handled"
       >
-        <Text className="text-4xl font-bold text-gray-900 text-center">
-          Kick<Text className="text-brand">'</Text>n Kicks
+        <Text className="text-4xl font-bold text-center" style={{ color: colors.text }}>
+          Kick<Text style={{ color: colors.brand }}>'</Text>n Kicks
         </Text>
-        <Text className="text-gray-500 text-center mt-2 mb-10">
+        <Text className="text-center mt-2 mb-8" style={{ color: colors.textMuted }}>
           The sneaker marketplace with soul
         </Text>
 
-        <Text className="text-sm font-semibold text-gray-700 mb-1">Email</Text>
-        <TextInput
-          className="bg-gray-50 rounded-xl px-4 py-3.5 text-base border border-gray-100 mb-4"
-          value={email}
-          onChangeText={setEmail}
-          placeholder="you@email.com"
-          placeholderTextColor="#ADB5BD"
-          autoCapitalize="none"
-          keyboardType="email-address"
-        />
-
-        <Text className="text-sm font-semibold text-gray-700 mb-1">Password</Text>
-        <TextInput
-          className="bg-gray-50 rounded-xl px-4 py-3.5 text-base border border-gray-100 mb-6"
-          value={password}
-          onChangeText={setPassword}
-          placeholder="••••••••"
-          placeholderTextColor="#ADB5BD"
-          secureTextEntry
-        />
-
-        <Pressable
-          onPress={handleEmailAuth}
-          disabled={loading}
-          className="py-4 rounded-xl items-center"
-          style={{ backgroundColor: colors.brand, opacity: loading ? 0.7 : 1 }}
-        >
-          <Text className="text-white font-bold">
-            {loading ? 'Please wait…' : isSignUp ? 'Create Account' : 'Sign In'}
+        <SurfaceCard style={{ marginBottom: 8 }}>
+          <Text className="text-sm font-semibold mb-1" style={{ color: colors.text }}>
+            Email
           </Text>
-        </Pressable>
+          <TextInput
+            className="px-4 py-3.5 text-base mb-4"
+            style={inputStyle}
+            value={email}
+            onChangeText={setEmail}
+            placeholder="you@email.com"
+            placeholderTextColor={colors.textMuted}
+            autoCapitalize="none"
+            keyboardType="email-address"
+          />
 
-        <Pressable onPress={() => setIsSignUp(!isSignUp)} className="mt-4 items-center">
-          <Text className="text-brand font-medium">
-            {isSignUp ? 'Already have an account? Sign in' : 'New here? Create account'}
+          <Text className="text-sm font-semibold mb-1" style={{ color: colors.text }}>
+            Password
           </Text>
-        </Pressable>
+          <TextInput
+            className="px-4 py-3.5 text-base mb-6"
+            style={inputStyle}
+            value={password}
+            onChangeText={setPassword}
+            placeholder="••••••••"
+            placeholderTextColor={colors.textMuted}
+            secureTextEntry
+          />
 
-        <View className="flex-row items-center my-8">
-          <View className="flex-1 h-px bg-gray-200" />
-          <Text className="mx-4 text-gray-400 text-sm">or continue with</Text>
-          <View className="flex-1 h-px bg-gray-200" />
+          <Pressable
+            onPress={handleEmailAuth}
+            disabled={loading}
+            className="py-4 rounded-xl items-center"
+            style={{ backgroundColor: colors.brand, opacity: loading ? 0.7 : 1, borderRadius: radii.md }}
+          >
+            <Text className="text-white font-bold">
+              {loading ? 'Please wait…' : isSignUp ? 'Create Account' : 'Sign In'}
+            </Text>
+          </Pressable>
+
+          <Pressable onPress={() => setIsSignUp(!isSignUp)} className="mt-4 items-center">
+            <Text className="font-medium" style={{ color: colors.brand }}>
+              {isSignUp ? 'Already have an account? Sign in' : 'New here? Create account'}
+            </Text>
+          </Pressable>
+        </SurfaceCard>
+
+        <View className="flex-row items-center my-6">
+          <View className="flex-1 h-px" style={{ backgroundColor: colors.border }} />
+          <Text className="mx-4 text-sm" style={{ color: colors.textMuted }}>
+            or continue with
+          </Text>
+          <View className="flex-1 h-px" style={{ backgroundColor: colors.border }} />
         </View>
 
         <Pressable
           onPress={handleGoogle}
-          className="flex-row items-center justify-center bg-gray-50 rounded-xl py-3.5 mb-3 border border-gray-100"
+          className="flex-row items-center justify-center py-3.5 mb-3 rounded-xl"
+          style={surfaceStyle}
         >
           <Ionicons name="logo-google" size={22} color="#4285F4" />
-          <Text className="ml-3 font-semibold text-gray-900">Google</Text>
+          <Text className="ml-3 font-semibold" style={{ color: colors.text }}>
+            Google
+          </Text>
         </Pressable>
 
         {Platform.OS === 'ios' && (
@@ -164,7 +185,9 @@ export function AuthScreen() {
 
         {!isSupabaseConfigured && (
           <Pressable onPress={signInDemo} className="mt-6 py-3 items-center">
-            <Text className="text-brand font-semibold">Continue as Demo</Text>
+            <Text className="font-semibold" style={{ color: colors.brand }}>
+              Continue as Demo
+            </Text>
           </Pressable>
         )}
       </ScrollView>

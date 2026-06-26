@@ -52,7 +52,7 @@ function SellSuccessView({
 }) {
   return (
     <View
-      className="flex-1 bg-white items-center justify-center px-8"
+      className="flex-1 items-center justify-center px-8"
       style={{ paddingTop: insets.top, paddingBottom: insets.bottom + 24 }}
     >
       <View
@@ -260,7 +260,7 @@ export function SellScreen({ navigation }: TabScreenProps<'SellTab'>) {
   }
 
   return (
-    <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
+    <View className="flex-1" style={{ paddingTop: insets.top }}>
       <ScrollView contentContainerClassName="px-5 pb-32" showsVerticalScrollIndicator={false}>
         <Pressable onPress={() => navigation.navigate('SellerDashboard')} className="mt-2 mb-4">
           <Text className="text-brand font-semibold">Seller Dashboard →</Text>

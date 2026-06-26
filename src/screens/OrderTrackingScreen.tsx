@@ -61,7 +61,7 @@ export function OrderTrackingScreen({
     : 1;
 
   return (
-    <View className="flex-1 bg-white" style={{ paddingTop: insets.top }}>
+    <View className="flex-1" style={{ paddingTop: insets.top }}>
       <View className="flex-row items-center px-4 py-3 border-b border-gray-100">
         <Pressable onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={24} color={colors.text} />

@@ -38,7 +38,7 @@ export function AppNavigator() {
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: colors.background,
+          backgroundColor: 'transparent',
         }}
       >
         <ActivityIndicator size="large" color={colors.brand} />
@@ -56,7 +56,7 @@ export function AppNavigator() {
           key={session ? 'signed-in' : 'signed-out'}
           screenOptions={{
             headerShown: false,
-            contentStyle: { backgroundColor: colors.background },
+            contentStyle: { backgroundColor: 'transparent' },
           }}
         >
           {!session ? (

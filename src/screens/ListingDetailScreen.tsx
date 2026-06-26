@@ -46,7 +46,7 @@ export function ListingDetailScreen({
 
   if (loading) {
     return (
-      <View className="flex-1 items-center justify-center bg-white">
+      <View className="flex-1 items-center justify-center">
         <ActivityIndicator size="large" color={colors.brand} />
       </View>
     );
@@ -54,7 +54,7 @@ export function ListingDetailScreen({
 
   if (!listing) {
     return (
-      <View className="flex-1 items-center justify-center bg-white">
+      <View className="flex-1 items-center justify-center">
         <Text className="text-gray-500">Listing not found.</Text>
         <Pressable onPress={() => navigation.goBack()} className="mt-4">
           <Text className="text-brand font-semibold">Go back</Text>
@@ -64,7 +64,7 @@ export function ListingDetailScreen({
   }
 
   return (
-    <View className="flex-1 bg-white">
+    <View className="flex-1">
       <ScrollView contentContainerClassName="pb-32">
         <Image source={{ uri: listing.imageUrl }} className="w-full aspect-square" />
         <View className="p-5">
