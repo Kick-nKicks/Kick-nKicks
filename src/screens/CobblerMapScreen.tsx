@@ -20,7 +20,7 @@ export function CobblerMapScreen({ navigation }: RootStackScreenProps<'CobblerMa
   };
 
   return (
-    <View className="flex-1 bg-white">
+    <View className="flex-1">
       <MapView style={{ flex: 1 }} initialRegion={region}>
         {cobblers.map((cobbler) => (
           <Marker

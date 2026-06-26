@@ -41,6 +41,7 @@ export function VideoFeedScreen(_props: TabScreenProps<'VideosTab'>) {
     <FlatList
       data={MOCK_VIDEOS}
       keyExtractor={(item) => item.id}
+      style={{ flex: 1, backgroundColor: '#000000' }}
       pagingEnabled
       showsVerticalScrollIndicator={false}
       onViewableItemsChanged={onViewableItemsChanged}

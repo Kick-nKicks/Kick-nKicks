@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#E63946"
+      "backgroundColor": "#FFFDF5"
     },
     "ios": {
       "supportsTablet": true,
@@ -62,7 +62,8 @@
           "merchantIdentifier": "merchant.com.kicknkicks.app",
           "enableGooglePay": true
         }
-      ]
+      ],
+      "expo-splash-screen"
     ],
     "extra": {
       "eas": {

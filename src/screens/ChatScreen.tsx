@@ -52,7 +52,7 @@ export function ChatScreen({ navigation }: RootStackScreenProps<'Chat'>) {
 
   return (
     <KeyboardAvoidingView
-      className="flex-1 bg-white"
+      className="flex-1"
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       style={{ paddingTop: insets.top }}
     >

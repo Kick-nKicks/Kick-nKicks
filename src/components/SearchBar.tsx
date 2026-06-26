@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, TextInput, View } from 'react-native';
+import { colors, surfaceStyle } from '../constants/theme';
 
 interface SearchBarProps {
   value?: string;
@@ -24,11 +25,14 @@ export function SearchBar({
 
   const content = (
     <View
-      className={`flex-row items-center rounded-xl px-3 border ${
-        isDark ? 'bg-white/10 border-white/20' : 'bg-gray-50 border-gray-100'
-      }`}
+      className="flex-row items-center rounded-xl px-3"
+      style={
+        isDark
+          ? { backgroundColor: 'rgba(255,255,255,0.12)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.2)' }
+          : { ...surfaceStyle, borderRadius: 12, paddingHorizontal: 12, paddingVertical: 0 }
+      }
     >
-      <Ionicons name="search" size={20} color={isDark ? '#FFFFFF' : '#ADB5BD'} />
+      <Ionicons name="search" size={20} color={isDark ? '#FFFFFF' : colors.textMuted} />
       <TextInput
         className={`flex-1 py-3 px-2 text-base ${isDark ? 'text-white' : 'text-gray-900'}`}
         value={value}
@@ -36,14 +40,14 @@ export function SearchBar({
         onSubmitEditing={onSubmit}
         onPressIn={onPress && !editable ? onPress : undefined}
         placeholder={placeholder}
-        placeholderTextColor={isDark ? 'rgba(255,255,255,0.5)' : '#ADB5BD'}
+        placeholderTextColor={isDark ? 'rgba(255,255,255,0.5)' : colors.textMuted}
         returnKeyType="search"
         editable={editable}
         pointerEvents={editable ? 'auto' : 'none'}
       />
       {editable && value.length > 0 && (
         <Pressable onPress={() => onChangeText?.('')}>
-          <Ionicons name="close-circle" size={20} color="#ADB5BD" />
+          <Ionicons name="close-circle" size={20} color={colors.textMuted} />
         </Pressable>
       )}
     </View>
